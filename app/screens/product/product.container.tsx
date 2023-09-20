@@ -109,6 +109,11 @@ const ProductsContainer = (): React.ReactElement => {
 
   const ICON = toggleLayout ? icons.reorderOutline : icons.gridOutline;
 
+  const NUM_COLUMNS = toggleLayout ? 2 : 1;
+  const LIST_KEY = toggleLayout
+    ? EnumLayoutGrid.GRID_VIEW
+    : EnumLayoutGrid.COLUMN_VIEW;
+
   return (
     <ScreenTemplate useLoading={isLoading}>
       <CustomSearchBar onChangeText={setSearchQuery} />
@@ -122,36 +127,18 @@ const ProductsContainer = (): React.ReactElement => {
         />
       </View>
 
-      {toggleLayout ? (
-        <FlatList
-          numColumns={2}
-          data={PRODUCTS_DATA}
-          windowSize={2 * 2 + 1}
-          renderItem={renderItem}
-          maxToRenderPerBatch={2}
-          style={styles.gridViewList}
-          key={EnumLayoutGrid.GRID_VIEW}
-          refreshControl={refreshControl}
-          showsVerticalScrollIndicator={false}
-          ListEmptyComponent={listEmptyComponent}
-          contentContainerStyle={styles.listContainer}
-          keyExtractor={(item) => item?.id?.toString()}
-        />
-      ) : (
-        <FlatList
-          numColumns={1}
-          data={PRODUCTS_DATA}
-          windowSize={2 * 2 + 1}
-          renderItem={renderItem}
-          maxToRenderPerBatch={2}
-          refreshControl={refreshControl}
-          key={EnumLayoutGrid.COLUMN_VIEW}
-          showsVerticalScrollIndicator={false}
-          ListEmptyComponent={listEmptyComponent}
-          contentContainerStyle={styles.listContainer}
-          keyExtractor={(item) => item?.id?.toString()}
-        />
-      )}
+      <FlatList
+        key={LIST_KEY}
+        data={PRODUCTS_DATA}
+        renderItem={renderItem}
+        numColumns={NUM_COLUMNS}
+        style={styles.gridViewList}
+        refreshControl={refreshControl}
+        showsVerticalScrollIndicator={false}
+        ListEmptyComponent={listEmptyComponent}
+        contentContainerStyle={styles.listContainer}
+        keyExtractor={(item) => item?.id?.toString()}
+      />
     </ScreenTemplate>
   );
 };
