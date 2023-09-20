@@ -107,7 +107,7 @@ const ProductsContainer = (): React.ReactElement => {
   const PRODUCTS_DATA: Array<IProducts> =
     query.length > 0 ? filteredData : products;
 
-  const ICON = toggleLayout ? icons.gridOutline : icons.reorderOutline;
+  const ICON = toggleLayout ? icons.reorderOutline : icons.gridOutline;
 
   return (
     <ScreenTemplate useLoading={isLoading}>
