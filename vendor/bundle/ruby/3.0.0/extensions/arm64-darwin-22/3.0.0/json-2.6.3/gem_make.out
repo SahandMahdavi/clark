@@ -1,0 +1,13 @@
+current directory: /Users/sahandmahdavi/Documents/Personal/clark/Clark/vendor/bundle/ruby/3.0.0/gems/json-2.6.3/ext/json
+/Users/sahandmahdavi/.rvm/rubies/ruby-3.0.0/bin/ruby -I /Users/sahandmahdavi/.rvm/rubies/ruby-3.0.0/lib/ruby/3.0.0 -r ./siteconf20230918-1943-shqcsf.rb extconf.rb
+creating Makefile
+
+current directory: /Users/sahandmahdavi/Documents/Personal/clark/Clark/vendor/bundle/ruby/3.0.0/gems/json-2.6.3/ext/json
+make "DESTDIR=" clean
+
+current directory: /Users/sahandmahdavi/Documents/Personal/clark/Clark/vendor/bundle/ruby/3.0.0/gems/json-2.6.3/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/sahandmahdavi/Documents/Personal/clark/Clark/vendor/bundle/ruby/3.0.0/gems/json-2.6.3/ext/json
+make "DESTDIR=" install
