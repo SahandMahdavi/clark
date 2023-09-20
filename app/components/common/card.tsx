@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
 } from "react-native";
+import Animated from "react-native-reanimated";
 import { colors } from "@app/theme/colors";
 import { spacing } from "@app/constants/spacing";
 
@@ -31,11 +32,11 @@ const CustomCardView = (props: LActCardProps): React.ReactElement => {
   const { onPress, children, containerStyle } = props;
 
   return (
-    <View style={[styles.container, containerStyle]}>
+    <Animated.View style={[styles.container, containerStyle]}>
       <TouchableWithoutFeedback testID="cardPress" onPress={onPress}>
         <View>{children}</View>
       </TouchableWithoutFeedback>
-    </View>
+    </Animated.View>
   );
 };
 

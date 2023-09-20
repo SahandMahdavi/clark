@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, StyleProp, ViewStyle } from "react-native";
 import { CustomCardView, CustomText } from "@app/components";
 import { IProducts } from "@app/api";
 import { spacing } from "@app/constants/spacing";
@@ -8,7 +8,7 @@ import { sizing } from "@app/constants/sizing";
 const styles = StyleSheet.create({
   container: {
     marginTop: spacing.large,
-    marginHorizontal: spacing.large,
+    marginHorizontal: spacing.medium,
   },
   image: {
     height: 196,
@@ -39,15 +39,19 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
+  style?: any;
   item: IProducts;
   onPress: () => void;
 }
 
 const ProductsItemColumn = (props: Props) => {
-  const { item, onPress } = props;
+  const { item, style, onPress } = props;
 
   return (
-    <CustomCardView onPress={onPress} containerStyle={styles.container}>
+    <CustomCardView
+      onPress={onPress}
+      containerStyle={[styles.container, style]}
+    >
       <Image source={{ uri: item?.image }} style={styles.image} />
 
       <View style={styles.detailsContainer}>

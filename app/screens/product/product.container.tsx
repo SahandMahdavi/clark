@@ -6,6 +6,12 @@ import {
   RefreshControl,
   RefreshControlProps,
 } from "react-native";
+import {
+  Easing,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from "react-native-reanimated";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
 import { IProducts, useGetProducts } from "@app/api";
@@ -25,6 +31,9 @@ const styles = StyleSheet.create({
   },
   gridViewList: {
     marginHorizontal: sizing.extraSmall,
+  },
+  columnViewList: {
+    marginHorizontal: sizing.mediumTiny,
   },
   listEmptyContainer: {
     height: 300,
@@ -47,6 +56,7 @@ const styles = StyleSheet.create({
 
 const ProductsContainer = (): React.ReactElement => {
   const navigation = useNavigation();
+  const toggleScale = useSharedValue(1);
   const [toggleLayout, setToggleLayout] = useState<boolean>(false);
   const { refetch, products, isLoading, refreshing } = useGetProducts();
   const {
@@ -61,25 +71,38 @@ const ProductsContainer = (): React.ReactElement => {
 
   const onSwitchLayoutPressed = () => {
     if (!toggleLayout) {
+      toggleScale.value = withSpring(0.97);
       setToggleLayout(true);
     } else {
+      toggleScale.value = withTiming(1, {
+        duration: 1200,
+        easing: Easing.inOut(Easing.ease),
+      });
       setToggleLayout(false);
     }
   };
 
   const renderItem = ({ item }: { item: IProducts }): React.ReactElement => {
     const onItemPressed = () => {
-      navigation.navigate(EnumScreens.PRODUCT_DETAILS as any, {
+      navigation.navigate(EnumScreens.PRODUCT_DETAILS, {
         product: item,
       });
+    };
+
+    const style = {
+      transform: [{ scale: toggleScale }],
     };
 
     return (
       <>
         {toggleLayout ? (
-          <ProductsItemGrid item={item} onPress={onItemPressed} />
+          <ProductsItemGrid item={item} onPress={onItemPressed} style={style} />
         ) : (
-          <ProductsItemColumn item={item} onPress={onItemPressed} />
+          <ProductsItemColumn
+            item={item}
+            style={style}
+            onPress={onItemPressed}
+          />
         )}
       </>
     );
@@ -114,6 +137,8 @@ const ProductsContainer = (): React.ReactElement => {
     ? EnumLayoutGrid.GRID_VIEW
     : EnumLayoutGrid.COLUMN_VIEW;
 
+  const LIST_STYLE = toggleLayout ? styles.gridViewList : styles.columnViewList;
+
   return (
     <ScreenTemplate useLoading={isLoading}>
       <CustomSearchBar onChangeText={setSearchQuery} />
@@ -129,10 +154,10 @@ const ProductsContainer = (): React.ReactElement => {
 
       <FlatList
         key={LIST_KEY}
+        style={LIST_STYLE}
         data={PRODUCTS_DATA}
         renderItem={renderItem}
         numColumns={NUM_COLUMNS}
-        style={styles.gridViewList}
         refreshControl={refreshControl}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={listEmptyComponent}

@@ -8,8 +8,7 @@ import { sizing } from "@app/constants/sizing";
 const styles = StyleSheet.create({
   container: {
     flex: 0.5,
-    justifyContent: "space-between",
-    marginTop: spacing.large,
+    marginTop: spacing.small,
     marginHorizontal: sizing.extraSmall,
   },
   image: {
@@ -37,15 +36,19 @@ const styles = StyleSheet.create({
 });
 
 interface Props {
+  style?: any;
   item: IProducts;
   onPress: () => void;
 }
 
 const ProductsItemGrid = (props: Props) => {
-  const { item, onPress } = props;
+  const { item, style, onPress } = props;
 
   return (
-    <CustomCardView onPress={onPress} containerStyle={styles.container}>
+    <CustomCardView
+      onPress={onPress}
+      containerStyle={[styles.container, style]}
+    >
       <Image source={{ uri: item?.image }} style={styles.image} />
 
       <View style={styles.detailsContainer}>
