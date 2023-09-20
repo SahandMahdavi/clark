@@ -8,14 +8,14 @@ import {
 } from "react-native";
 import Animated from "react-native-reanimated";
 import { colors } from "@app/theme/colors";
-import { spacing } from "@app/constants/spacing";
+import { sizing } from "@app/constants/sizing";
 
 const styles = StyleSheet.create({
   container: {
     elevation: 3,
     shadowOpacity: 0.25,
-    borderRadius: spacing.large,
-    shadowRadius: spacing.extraSmall,
+    borderRadius: sizing.large,
+    shadowRadius: sizing.extraSmall,
     shadowOffset: { width: 1, height: 1 },
     shadowColor: colors.palette.neutral800,
     backgroundColor: colors.palette.neutral200,

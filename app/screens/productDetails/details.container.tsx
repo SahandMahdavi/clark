@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ProductDetailsContainer = () => {
+const ProductDetailsContainer: React.FC = () => {
   const navigation = useNavigation();
   const route = useRoute<RouteProp<ParamListBase, string>>();
   const { product }: any = route.params;

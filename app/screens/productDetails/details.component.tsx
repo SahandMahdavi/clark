@@ -1,33 +1,33 @@
 import { IProducts } from "@app/api";
 import { CustomText } from "@app/components";
-import { spacing } from "@app/constants/spacing";
+import { sizing } from "@app/constants/sizing";
 import React from "react";
 import { Image, View, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   detailsContainer: {
-    paddingHorizontal: spacing.medium,
+    paddingHorizontal: sizing.medium,
   },
   image: {
     height: 200,
     resizeMode: "contain",
-    marginTop: spacing.medium,
+    marginTop: sizing.medium,
   },
   title: {
     fontWeight: "800",
     textAlign: "center",
-    fontSize: spacing.medium,
-    marginTop: spacing.large,
+    fontSize: sizing.medium,
+    marginTop: sizing.large,
   },
   price: {
     fontWeight: "700",
-    marginTop: spacing.large,
+    marginTop: sizing.large,
   },
   description: {
     textAlign: "justify",
-    marginTop: spacing.huge,
-    fontSize: spacing.medium,
-    lineHeight: spacing.large,
+    marginTop: sizing.huge,
+    fontSize: sizing.medium,
+    lineHeight: sizing.large,
   },
 });
 
@@ -35,7 +35,7 @@ interface Props {
   item: IProducts;
 }
 
-const ProductDetailsComponent = (props: Props) => {
+const ProductDetailsComponent = (props: Props): React.ReactElement => {
   const { item } = props;
 
   return (

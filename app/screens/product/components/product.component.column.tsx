@@ -2,24 +2,23 @@ import React from "react";
 import { View, Image, StyleSheet, StyleProp, ViewStyle } from "react-native";
 import { CustomCardView, CustomText } from "@app/components";
 import { IProducts } from "@app/api";
-import { spacing } from "@app/constants/spacing";
 import { sizing } from "@app/constants/sizing";
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: spacing.large,
-    marginHorizontal: spacing.medium,
+    marginTop: sizing.large,
+    marginHorizontal: sizing.medium,
   },
   image: {
     height: 196,
     resizeMode: "contain",
-    borderTopLeftRadius: spacing.large,
-    borderTopRightRadius: spacing.large,
+    borderTopLeftRadius: sizing.large,
+    borderTopRightRadius: sizing.large,
   },
   detailsContainer: {
-    paddingTop: spacing.medium,
-    paddingBottom: spacing.extraLarge,
-    paddingHorizontal: spacing.medium,
+    paddingTop: sizing.medium,
+    paddingBottom: sizing.extraLarge,
+    paddingHorizontal: sizing.medium,
   },
   rowContainer: {
     flexDirection: "row",
@@ -34,7 +33,7 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   description: {
-    marginTop: spacing.medium,
+    marginTop: sizing.medium,
   },
 });
 
@@ -44,7 +43,7 @@ interface Props {
   onPress: () => void;
 }
 
-const ProductsItemColumn = (props: Props) => {
+const ProductsItemColumn = (props: Props): React.ReactElement => {
   const { item, style, onPress } = props;
 
   return (

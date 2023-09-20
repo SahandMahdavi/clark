@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import {
   View,
   FlatList,
@@ -8,17 +8,18 @@ import {
 } from "react-native";
 import {
   Easing,
-  useSharedValue,
   withSpring,
   withTiming,
+  useSharedValue,
 } from "react-native-reanimated";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/Ionicons";
+import { AppStackParamList } from "@app/navigators";
 import { IProducts, useGetProducts } from "@app/api";
 import { useSearch } from "@app/hooks";
 import { CustomSearchBar, CustomText, ScreenTemplate } from "@app/components";
 import { colors, icons } from "@app/theme";
-import { spacing } from "@app/constants/spacing";
 import { EnumScreens } from "@app/constants/routes";
 import { EnumLayoutGrid } from "@app/constants/enums";
 import { sizing } from "@app/constants/sizing";
@@ -27,7 +28,7 @@ import ProductsItemColumn from "./components/product.component.column";
 
 const styles = StyleSheet.create({
   listContainer: {
-    paddingBottom: spacing.medium,
+    paddingBottom: sizing.medium,
   },
   gridViewList: {
     marginHorizontal: sizing.extraSmall,
@@ -43,22 +44,21 @@ const styles = StyleSheet.create({
   listEmptyNotice: {
     fontWeight: "700",
     textAlign: "center",
-    fontSize: spacing.medium,
-    paddingHorizontal: spacing.medium,
+    fontSize: sizing.medium,
+    paddingHorizontal: sizing.medium,
   },
   iconContainer: {
+    alignItems: "flex-end",
     paddingEnd: sizing.medium,
     paddingTop: sizing.extraSmall,
-    paddingBottom: sizing.extraSmall,
-    alignItems: "flex-end",
   },
 });
 
-const ProductsContainer = (): React.ReactElement => {
-  const navigation = useNavigation();
+const ProductsContainer: React.FC = () => {
   const toggleScale = useSharedValue(1);
   const [toggleLayout, setToggleLayout] = useState<boolean>(false);
   const { refetch, products, isLoading, refreshing } = useGetProducts();
+  const navigation = useNavigation<StackNavigationProp<AppStackParamList>>();
   const {
     query,
     setQuery: setSearchQuery,
@@ -127,10 +127,23 @@ const ProductsContainer = (): React.ReactElement => {
     );
   };
 
+  const listHeaderComponent = useMemo(() => {
+    const ICON = toggleLayout ? icons.reorderOutline : icons.gridOutline;
+
+    return (
+      <View style={styles.iconContainer}>
+        <Icon
+          name={ICON}
+          color={colors.icon}
+          size={sizing.extraLarge}
+          onPress={onSwitchLayoutPressed}
+        />
+      </View>
+    );
+  }, [toggleLayout]);
+
   const PRODUCTS_DATA: Array<IProducts> =
     query.length > 0 ? filteredData : products;
-
-  const ICON = toggleLayout ? icons.reorderOutline : icons.gridOutline;
 
   const NUM_COLUMNS = toggleLayout ? 2 : 1;
   const LIST_KEY = toggleLayout
@@ -143,15 +156,6 @@ const ProductsContainer = (): React.ReactElement => {
     <ScreenTemplate useLoading={isLoading}>
       <CustomSearchBar onChangeText={setSearchQuery} />
 
-      <View style={styles.iconContainer}>
-        <Icon
-          name={ICON}
-          color={colors.icon}
-          size={spacing.extraLarge}
-          onPress={onSwitchLayoutPressed}
-        />
-      </View>
-
       <FlatList
         key={LIST_KEY}
         style={LIST_STYLE}
@@ -161,6 +165,7 @@ const ProductsContainer = (): React.ReactElement => {
         refreshControl={refreshControl}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={listEmptyComponent}
+        ListHeaderComponent={listHeaderComponent}
         contentContainerStyle={styles.listContainer}
         keyExtractor={(item) => item?.id?.toString()}
       />

@@ -1,16 +1,16 @@
 import React from "react";
 import { TextInput, View, StyleSheet } from "react-native";
 import { colors } from "@app/theme";
-import { spacing } from "@app/constants/spacing";
+import { sizing } from "@app/constants/sizing";
 
 const styles = StyleSheet.create({
   container: {
-    padding: spacing.medium,
+    padding: sizing.medium,
     backgroundColor: colors.backgroundSecondary,
   },
   input: {
-    padding: spacing.small,
-    borderRadius: spacing.small,
+    padding: sizing.small,
+    borderRadius: sizing.small,
     backgroundColor: colors.background,
   },
 });

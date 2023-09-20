@@ -2,25 +2,24 @@ import React from "react";
 import { View, Image, StyleSheet } from "react-native";
 import { CustomCardView, CustomText } from "@app/components";
 import { IProducts } from "@app/api";
-import { spacing } from "@app/constants/spacing";
 import { sizing } from "@app/constants/sizing";
 
 const styles = StyleSheet.create({
   container: {
     flex: 0.5,
-    marginTop: spacing.small,
+    marginTop: sizing.small,
     marginHorizontal: sizing.extraSmall,
   },
   image: {
     height: 150,
     resizeMode: "contain",
-    borderTopLeftRadius: spacing.large,
-    borderTopRightRadius: spacing.large,
+    borderTopLeftRadius: sizing.large,
+    borderTopRightRadius: sizing.large,
   },
   detailsContainer: {
-    paddingTop: spacing.medium,
-    paddingBottom: spacing.extraLarge,
-    paddingHorizontal: spacing.medium,
+    paddingTop: sizing.medium,
+    paddingBottom: sizing.extraLarge,
+    paddingHorizontal: sizing.medium,
   },
   title: {
     fontSize: 16,
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
     marginTop: sizing.medium,
   },
   description: {
-    marginTop: spacing.medium,
+    marginTop: sizing.medium,
   },
 });
 
@@ -41,7 +40,7 @@ interface Props {
   onPress: () => void;
 }
 
-const ProductsItemGrid = (props: Props) => {
+const ProductsItemGrid = (props: Props): React.ReactElement => {
   const { item, style, onPress } = props;
 
   return (
